@@ -25,3 +25,8 @@ class MovieSerializer(serializers.Serializer):
 
         return instance
 
+    def validated_name(self, value):
+        if len(value) < 2:
+            raise serializers.ValidationError("Name is too short!")
+        else:
+            return value
