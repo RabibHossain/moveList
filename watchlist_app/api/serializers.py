@@ -7,11 +7,7 @@ from rest_framework import serializers
 Model Serializer Functionalities
 """
 
-class StreamPlatformSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = StreamPlatform
-        fields = "__all__"
 
 class WatchListSerializer(serializers.ModelSerializer):
 
@@ -23,6 +19,19 @@ class WatchListSerializer(serializers.ModelSerializer):
         fields = "__all__"
         # fields = ['id', 'name']
 
+
+class StreamPlatformSerializer(serializers.HyperlinkedModelSerializer):
+    watchlist = WatchListSerializer(many=True, read_only=True)
+    # watchlist = serializers.HyperlinkedRelatedField(
+    #     many = True,
+    #     read_only = True,
+    #     view_name = 'stream-detail'
+    # )
+ 
+    class Meta:
+        model = StreamPlatform
+        fields = "__all__"        
+ 
     # def get_len_name(self, object):
     #     return len(object.name)
 
